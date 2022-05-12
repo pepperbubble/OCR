@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form method="post" action="/upload" enctype="multipart/form-data">
+    选择模板<br>
+    <select name="template">
+        <option value="0">电流互感器实验</option>
+        <option value="1">非晶合金铁心变压器</option>
+        <option value="2">银行卡</option>
+    </select>
+    <hr>
+    选择要识别的图片：<br>
+    <input onchange="picUpload();" type="file" id="pic" name="file"><br>
+    <hr>
+    <input type="submit" value="识别">
+</form>
+
+<script type="text/javascript">
+
+    function picUpload(){
+        var pic = document.getElementById("pic");//获取input对象
+
+        var image = pic.value;
+        var extStart = image.lastIndexOf(".");
+        var ext = image.substring(extStart, image.length).toUpperCase();
+        if ( ext != ".PNG" && ext != ".GIF" && ext != ".JPG" && ext != ".JPEG") {
+            alert("图片限于png，gif，jpeg，jpg格式！");
+            return false;
+        }
+
+
+        var file = pic.files[0];//获取input上传的图片信息
+        var url = window.URL.createObjectURL(file);//得到bolb对象路径，赋值给<img>标签的src属性
+
+        var img = new Image('500','400');
+        img.src = url;
+
+        var form = document.getElementsByTagName('form')[0];
+        form.appendChild(img);
+    }
+
+</script>
+</body>
+</html>
